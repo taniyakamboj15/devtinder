@@ -14,7 +14,7 @@ import Connections from './Components/Connections';
 import Request from './Components/Request';
 const AppLayout=()=>{
     return(
-        <div className='relative'>
+        <div className='relative overflow-x-hidden'>
             <Provider store={appStore}>
             <Header/>
             <Outlet />

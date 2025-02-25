@@ -36,33 +36,33 @@ const EditProfile = ({user}) => {
     }
   return (
     <div>
-    <div className='relative flex justify-center bg-neutral-100/30 w-screen gap-5'>
+    <div className='relative flex md:flex-row flex-col justify-center items-center bg-neutral-100/30 w-screen gap-5'>
     <div className=''>
-            <div className=' h-fit w-72 border-2 border-black rounded-md mt-20 z-10 backdrop-blur-2xl font-semibold '>
-                <h1 className='text-center text-3xl'>Login</h1>
+            <div className=' h-fit w-72 border-2 border-black rounded-md  z-10 backdrop-blur-2xl font-semibold '>
+                <h1 className='text-center text-3xl'>Edit Profile</h1>
                 <form className='px-3 flex flex-col gap-3' onSubmit={saveProfile}>
                     <div>
-                    <label className='text-2xl ' for="first">firstName:</label><br/>
+                    <label className='text-2xl ' for="first">First Name</label><br/>
                     <input type="text" id="first" value={firstName} onChange={(e)=>setFirstName(e.target.value)} className='border border-black h-10 w-full' ></input><br/>
                     </div>
                     <div>
-                    <label className='text-2xl'for="last">lastName:</label><br/>
+                    <label className='text-2xl'for="last">Last Name</label><br/>
                     
                     <input type="text" id="last" value={lastName} onChange={(e)=>setLastName(e.target.value)} className='border border-black h-10 w-full'></input><br/>
                    </div>
                    <div>
-                    <label className='text-2xl'for="age">Age:</label><br/>
+                    <label className='text-2xl'for="age" >Age</label><br/>
                     
-                    <input type="text" id="age" value={age} onChange={(e)=>setAge(e.target.value)} className='border border-black h-10 w-full'></input><br/>
+                    <input type="text" id="age" value={age} required onChange={(e)=>setAge(e.target.value)} className='border border-black h-10 w-full'></input><br/>
                     </div><div>
-                    <label className='text-2xl'for="photo">photo:</label><br/>
+                    <label className='text-2xl'for="photo">Photo URL</label><br/>
                     
                     <input type="text" id="photo" value={photoURL} onChange={(e)=>setPhotoUrl(e.target.value)} className='border border-black h-10 w-full'></input><br/>
                     </div>
                     {error && (
                     <p className='text-red-500 text-sm md:text-2xl'>{error}</p>
                   )}
-                    <button type='submit' className="mx-20 border border-black rounded-md text-2xl my-3">Save Profile</button>
+                    <button type='submit' className="w-full border border-black rounded-md text-2xl my-3">Save Profile</button>
     
     
                     
@@ -70,7 +70,10 @@ const EditProfile = ({user}) => {
                 </form>
             </div>
         </div>
-        <div>
+        <div className='flex flex-col gap-3'>
+          
+        <p className='font-semibold text-center bg-blue-200 mx-5 py-2 md:text-lg'>How Your Profile will Look </p>
+      
         <UserCard user={{firstName,lastName,age,photoURL}}/>
         </div>
         </div>

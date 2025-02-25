@@ -46,13 +46,13 @@ const Request = () => {
     if (request.length === 0) return <h1 className="top-20 text-3xl font-bold text-center">No Requests</h1>;
 
     return (
-        <div className="top-20 flex flex-col items-center gap-5">
+        <div className="top-20 flex flex-col items-center gap-5 px-3 min-h-screen">
             <h1 className="font-bold text-3xl text-center">Requests</h1>
 
             {request.map((req, index) => (
                 <div 
                     key={index} 
-                    className="flex items-center bg-gray-200 shadow-md rounded-lg p-4 w-96 gap-4"
+                    className="flex items-center bg-gray-200 shadow-md rounded-lg p-4 md:w-96 w-full gap-4"
                 >
                     {/* User Image */}
                     <img 

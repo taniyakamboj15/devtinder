@@ -92,7 +92,8 @@ const Login = () => {
     },[])
 
   return (
-    <div className='relative h-screen w-screen flex items-center justify-center'
+    <div className=''>
+    <div className='relative h-screen w-full flex items-center justify-center'
     style={{
       backgroundImage: `url(${backgroundImage})`,
       backgroundSize: "cover",
@@ -100,30 +101,32 @@ const Login = () => {
       backgroundRepeat: "no-repeat",
     }}>
         <div className='absolute inset-0 bg-black/30 backdrop-blur-3xl'></div>
-        <div className='bg-neutral-100/30 h-fit w-72 border-2 border-black rounded-md  z-10 backdrop-blur-2xl font-semibold '>
-            <h1 className='text-center text-3xl'>{isLoginForm ? "Login" : "signup"}</h1>
-            <form className='px-3 flex flex-col'  onSubmit={isLoginForm ? handleLoginForm : handleSignUp}>
-              {!isLoginForm && (<>           <label className='text-2xl ' for="first">firstName:</label>
-                <input type="text" id="first" value={firstName} onChange={(e)=>setFirstName(e.target.value)} className='border border-black h-10' ></input>
-                <label className='text-2xl'for="last">lastName:</label>
+        <div className='bg-neutral-100/30 h-fit w-80 border-2 py-10 border-black rounded-md  z-10 backdrop-blur-2xl font-semibold '>
+            <h1 className='text-center text-3xl mb-5'>{isLoginForm ? "Login" : "Sign Up"}</h1>
+            <form className='px-3 flex flex-col gap-1'  onSubmit={isLoginForm ? handleLoginForm : handleSignUp}>
+              {!isLoginForm && (<>           <label className='text-xl ' for="first">First Name</label>
+                <input type="text" id="first" value={firstName} onChange={(e)=>setFirstName(e.target.value)} className='rounded-md mb-3 border border-black h-10' ></input>
+                <label className='text-xl 'for="last">Last Name</label>
                 
-                <input type="text" id="last" value={lastName} onChange={(e)=>setLastName(e.target.value)} className='border border-black h-10 '></input></>)}
- 
-                <label className='text-2xl ' for="Email">Email:</label>
-                <input type="text" id="Email" value={email} onChange={(e)=>setEmail(e.target.value)} className='border border-black h-10' ></input>
-                <label className='text-2xl'for="pass">Password:</label>
-                
-                <input type="password" id="pass" value={password} onChange={(e)=>setPassword(e.target.value)} className='border border-black h-10 '></input>
+                <input type="text" id="last" value={lastName} onChange={(e)=>setLastName(e.target.value)} className='rounded-md mb-3 border border-black h-10 '></input></>)}
+              
+                <label className='text-xl ' for="Email">Email:</label>
+                <input type="text" id="Email" value={email} onChange={(e)=>setEmail(e.target.value)} className='rounded-md mb-3 border border-black h-10' ></input>
+              
+                <label className='text-xl'for="pass">Password:</label>
+                <input type="password" id="pass" value={password} onChange={(e)=>setPassword(e.target.value)} className='rounded-md border border-black h-10 '></input>
+               
                 {error && (
-                <p className='text-red-500 text-sm md:text-2xl'>{error}</p>
+                <p className='text-red-500 text-sm md:text-xl'>{error}</p>
               )}
-                <button type='submit' className="mx-20 border border-black rounded-md text-2xl my-3">{isLoginForm ? "Login" : "signup"}</button>
+                <button type='submit' className="py-2 mt-5 border border-black rounded-lg text-xl my-3 w-full hover:scale-95 cursor-pointer bg-white">{isLoginForm ? "Login" : "Sign Up"}</button>
                 <div>
-                  <p className='cursor-pointer ' onClick={()=>setIsLoginForm((value)=> !value)}>{isLoginForm ? "Dont have an account? signup" : "already have an account? login now"}</p>
+                  <p className='cursor-pointer ' onClick={()=>setIsLoginForm((value)=> !value)}>{isLoginForm ? "Don`t have an account? Sign Up" : "Already have an account? Login now"}</p>
                 </div>
             </form>
             
         </div>
+    </div>
     </div>
   )
 }

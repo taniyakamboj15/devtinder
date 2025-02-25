@@ -2975,7 +2975,7 @@ var _request = require("./Components/Request");
 var _requestDefault = parcelHelpers.interopDefault(_request);
 const AppLayout = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "relative",
+        className: "relative overflow-x-hidden",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRedux.Provider), {
             store: (0, _appStoreDefault.default),
             children: [
@@ -34606,9 +34606,11 @@ var _userSlice = require("../redux/userSlice");
 var _s = $RefreshSig$();
 const Header = ()=>{
     _s();
+    const location = (0, _reactRouterDom.useLocation)();
     const [isOpen, setIsOpen] = (0, _react.useState)(false);
     const dispatch = (0, _reactRedux.useDispatch)();
     const navigate = (0, _reactRouterDom.useNavigate)();
+    console.log(location.pathname);
     const handleLogOut = async ()=>{
         const response = await fetch((0, _constantsJs.Base_URL) + "/logout", {
             method: "POST",
@@ -34625,140 +34627,146 @@ const Header = ()=>{
     };
     const user = (0, _reactRedux.useSelector)((store)=>store.user);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "bg-gradient-to-b from-black z-20 sticky top-0 w-screen flex flex-row justify-between items-center px-3 md:px-10",
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                to: "/",
-                children: [
-                    " ",
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                        className: " w-32 md:w-40 ",
-                        src: (0, _logoPngDefault.default),
-                        alt: "logo"
-                    }, void 0, false, {
-                        fileName: "src/Components/Header.js",
-                        lineNumber: 32,
-                        columnNumber: 22
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/Components/Header.js",
-                lineNumber: 32,
-                columnNumber: 8
-            }, undefined),
-            user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "flex gap-0.5 items-center cursor-pointer",
-                onClick: ()=>setIsOpen(!isOpen),
-                onMouseEnter: ()=>setIsOpen(true),
-                onMouseLeave: ()=>setIsOpen(false),
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                        className: "font-bold",
-                        children: [
-                            "Welcome ",
-                            user.firstName
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/Components/Header.js",
-                        lineNumber: 41,
-                        columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                        src: user.photoURL,
-                        alt: "user icon",
-                        className: "rounded-full h-8 md:h-14"
-                    }, void 0, false, {
-                        fileName: "src/Components/Header.js",
-                        lineNumber: 42,
-                        columnNumber: 11
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/Components/Header.js",
-                lineNumber: 35,
-                columnNumber: 9
-            }, undefined),
-            isOpen && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "absolute right-0 top-full  mt-2 w-40 bg-white shadow-md rounded-lg p-2",
-                onMouseEnter: ()=>setIsOpen(true),
-                onMouseLeave: ()=>setIsOpen(false),
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
-                    className: "space-y-2",
+        className: `${location.pathname === "/login" ? "absolute" : ""}`,
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: `bg-gradient-to-b from-black z-20 sticky top-0 w-screen flex flex-row justify-between items-center px-3 md:px-10 `,
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                    to: "/",
                     children: [
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                                to: "/profile",
-                                className: "px-4 py-2 hover:bg-gray-100 cursor-pointer",
-                                children: "Edit Profile"
-                            }, void 0, false, {
-                                fileName: "src/Components/Header.js",
-                                lineNumber: 58,
-                                columnNumber: 13
-                            }, undefined)
+                        " ",
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                            className: " w-32 md:w-40 ",
+                            src: (0, _logoPngDefault.default),
+                            alt: "logo"
                         }, void 0, false, {
                             fileName: "src/Components/Header.js",
-                            lineNumber: 57,
-                            columnNumber: 13
-                        }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                                to: "/connection",
-                                className: "px-4 py-2 hover:bg-gray-100 cursor-pointer",
-                                children: "Connections"
-                            }, void 0, false, {
-                                fileName: "src/Components/Header.js",
-                                lineNumber: 60,
-                                columnNumber: 13
-                            }, undefined)
-                        }, void 0, false, {
-                            fileName: "src/Components/Header.js",
-                            lineNumber: 59,
-                            columnNumber: 13
-                        }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                                to: "/request",
-                                className: "px-4 py-2 hover:bg-gray-100 cursor-pointer",
-                                children: "Request"
-                            }, void 0, false, {
-                                fileName: "src/Components/Header.js",
-                                lineNumber: 62,
-                                columnNumber: 13
-                            }, undefined)
-                        }, void 0, false, {
-                            fileName: "src/Components/Header.js",
-                            lineNumber: 61,
-                            columnNumber: 13
-                        }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
-                            className: "px-4 py-2 hover:bg-gray-100 cursor-pointer",
-                            onClick: handleLogOut,
-                            children: "Logout"
-                        }, void 0, false, {
-                            fileName: "src/Components/Header.js",
-                            lineNumber: 64,
-                            columnNumber: 13
+                            lineNumber: 35,
+                            columnNumber: 22
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/Components/Header.js",
-                    lineNumber: 56,
-                    columnNumber: 11
+                    lineNumber: 35,
+                    columnNumber: 8
+                }, undefined),
+                user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    className: "flex gap-0.5 items-center cursor-pointer",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                            className: "font-bold",
+                            children: [
+                                "Welcome ",
+                                user.firstName
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Components/Header.js",
+                            lineNumber: 41,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "dropdown dropdown-hover dropdown-bottom dropdown-end",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                    src: user.photoURL,
+                                    alt: "user icon",
+                                    className: "rounded-full h-8 md:h-14"
+                                }, void 0, false, {
+                                    fileName: "src/Components/Header.js",
+                                    lineNumber: 43,
+                                    columnNumber: 11
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                                    tabIndex: 0,
+                                    className: "dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                                to: "/profile",
+                                                className: "px-4 py-2 hover:bg-gray-100 cursor-pointer",
+                                                children: "Edit Profile"
+                                            }, void 0, false, {
+                                                fileName: "src/Components/Header.js",
+                                                lineNumber: 50,
+                                                columnNumber: 13
+                                            }, undefined)
+                                        }, void 0, false, {
+                                            fileName: "src/Components/Header.js",
+                                            lineNumber: 49,
+                                            columnNumber: 3
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                                to: "/connection",
+                                                className: "px-4 py-2 hover:bg-gray-100 cursor-pointer",
+                                                children: "Connections"
+                                            }, void 0, false, {
+                                                fileName: "src/Components/Header.js",
+                                                lineNumber: 52,
+                                                columnNumber: 13
+                                            }, undefined)
+                                        }, void 0, false, {
+                                            fileName: "src/Components/Header.js",
+                                            lineNumber: 51,
+                                            columnNumber: 13
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                                to: "/request",
+                                                className: "px-4 py-2 hover:bg-gray-100 cursor-pointer",
+                                                children: "Request"
+                                            }, void 0, false, {
+                                                fileName: "src/Components/Header.js",
+                                                lineNumber: 54,
+                                                columnNumber: 13
+                                            }, undefined)
+                                        }, void 0, false, {
+                                            fileName: "src/Components/Header.js",
+                                            lineNumber: 53,
+                                            columnNumber: 13
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                                            className: "px-4 py-2 hover:bg-gray-100 cursor-pointer",
+                                            onClick: handleLogOut,
+                                            children: "Logout"
+                                        }, void 0, false, {
+                                            fileName: "src/Components/Header.js",
+                                            lineNumber: 55,
+                                            columnNumber: 13
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Components/Header.js",
+                                    lineNumber: 48,
+                                    columnNumber: 3
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Components/Header.js",
+                            lineNumber: 42,
+                            columnNumber: 11
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/Components/Header.js",
+                    lineNumber: 38,
+                    columnNumber: 9
                 }, undefined)
-            }, void 0, false, {
-                fileName: "src/Components/Header.js",
-                lineNumber: 51,
-                columnNumber: 9
-            }, undefined)
-        ]
-    }, void 0, true, {
+            ]
+        }, void 0, true, {
+            fileName: "src/Components/Header.js",
+            lineNumber: 34,
+            columnNumber: 5
+        }, undefined)
+    }, void 0, false, {
         fileName: "src/Components/Header.js",
-        lineNumber: 31,
+        lineNumber: 33,
         columnNumber: 5
     }, undefined);
 };
-_s(Header, "z/rDH5xs0PBUbE7wVvOGHwIZzZ8=", false, function() {
+_s(Header, "gZ5pqpT3+o4aWWmdGSQ5ntBrtXc=", false, function() {
     return [
+        (0, _reactRouterDom.useLocation),
         (0, _reactRedux.useDispatch),
         (0, _reactRouterDom.useNavigate),
         (0, _reactRedux.useSelector)
@@ -39959,6 +39967,7 @@ const Body = ()=>{
     const fetchUser = async ()=>{
         if (userData) return;
         try {
+            console.log("fetch called");
             const response = await fetch((0, _constants.Base_URL) + "/profile/view", {
                 method: "GET",
                 headers: {
@@ -39972,17 +39981,18 @@ const Body = ()=>{
         } catch (err) {}
     };
     (0, _react.useEffect)(()=>{
+        console.log("useffect called");
         fetchUser();
     }, []);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _feedDefault.default), {}, void 0, false, {
             fileName: "src/Components/Body.js",
-            lineNumber: 41,
+            lineNumber: 43,
             columnNumber: 10
         }, undefined)
     }, void 0, false, {
         fileName: "src/Components/Body.js",
-        lineNumber: 41,
+        lineNumber: 43,
         columnNumber: 5
     }, undefined);
 };
@@ -40053,7 +40063,7 @@ const Feed = ()=>{
         columnNumber: 34
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "",
+        className: "min-h-screen",
         children: feed && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userCardDefault.default), {
             user: feed[0]
         }, void 0, false, {
@@ -40120,10 +40130,12 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _constants = require("../utils/Constants");
 var _reactRedux = require("react-redux");
 var _feedSlice = require("../redux/feedSlice");
+var _reactRouterDom = require("react-router-dom");
 var _s = $RefreshSig$();
 const UserCard = ({ user })=>{
     _s();
     const dispatch = (0, _reactRedux.useDispatch)();
+    const location = (0, _reactRouterDom.useLocation)();
     const { firstName, lastName, age, photoURL, _id } = user;
     const handleSendRequest = async (status, _id)=>{
         const response = await fetch((0, _constants.Base_URL) + "/request/send/" + status + "/" + _id, {
@@ -40136,7 +40148,7 @@ const UserCard = ({ user })=>{
         dispatch((0, _feedSlice.removeFeed)(_id));
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "border-4 border-black rounded-lg w-fit mx-auto h-fit  top-20  bg-black",
+        className: "border-4 border-black rounded-lg w-fit  h-fit  top-20  bg-black md:mx-auto mx-4",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                 className: "w-96 h-96 object-cover",
@@ -40144,7 +40156,7 @@ const UserCard = ({ user })=>{
                 alt: "dummy photo"
             }, void 0, false, {
                 fileName: "src/Components/UserCard.js",
-                lineNumber: 24,
+                lineNumber: 26,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -40159,7 +40171,7 @@ const UserCard = ({ user })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/Components/UserCard.js",
-                        lineNumber: 26,
+                        lineNumber: 28,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -40167,56 +40179,57 @@ const UserCard = ({ user })=>{
                         children: age
                     }, void 0, false, {
                         fileName: "src/Components/UserCard.js",
-                        lineNumber: 27,
+                        lineNumber: 29,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/Components/UserCard.js",
-                lineNumber: 25,
+                lineNumber: 27,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "flex gap-5 my-5 justify-center",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                        className: "border border-black rounded-md bg-pink-400 p-2 w-24",
+                        className: `border border-black rounded-md bg-pink-400 p-2 w-24 ${location.pathname === "/profile" ? "hidden" : "block "}`,
                         onClick: ()=>{
                             handleSendRequest("interested", _id);
                         },
                         children: "interested"
                     }, void 0, false, {
                         fileName: "src/Components/UserCard.js",
-                        lineNumber: 30,
+                        lineNumber: 32,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                        className: "border border-black rounded-md bg-blue-400 w-24 p-2",
+                        className: `border border-black rounded-md bg-blue-400 w-24 p-2 ${location.pathname === "/profile" ? "hidden" : "block "} `,
                         onClick: ()=>{
                             handleSendRequest("ignored", _id);
                         },
                         children: "ignore"
                     }, void 0, false, {
                         fileName: "src/Components/UserCard.js",
-                        lineNumber: 31,
+                        lineNumber: 33,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/Components/UserCard.js",
-                lineNumber: 29,
+                lineNumber: 31,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/Components/UserCard.js",
-        lineNumber: 23,
+        lineNumber: 25,
         columnNumber: 5
     }, undefined);
 };
-_s(UserCard, "rgTLoBID190wEKCp9+G8W6F7A5M=", false, function() {
+_s(UserCard, "GbYGBQuBzDFP3ryA9Nq5nJnvu8Y=", false, function() {
     return [
-        (0, _reactRedux.useDispatch)
+        (0, _reactRedux.useDispatch),
+        (0, _reactRouterDom.useLocation)
     ];
 });
 _c = UserCard;
@@ -40229,7 +40242,7 @@ $RefreshReg$(_c, "UserCard");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/Constants":"icYMm","react-redux":"62sf7","../redux/feedSlice":"5rLQu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"ffNeV":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/Constants":"icYMm","react-redux":"62sf7","../redux/feedSlice":"5rLQu","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"ffNeV":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$301a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -40325,167 +40338,174 @@ const Login = ()=>{
         fetchData();
     }, []);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "relative h-screen w-screen flex items-center justify-center",
-        style: {
-            backgroundImage: `url(${(0, _bgImageJpgDefault.default)})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat"
-        },
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "absolute inset-0 bg-black/30 backdrop-blur-3xl"
-            }, void 0, false, {
-                fileName: "src/Components/Login.js",
-                lineNumber: 102,
-                columnNumber: 9
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "bg-neutral-100/30 h-fit w-72 border-2 border-black rounded-md  z-10 backdrop-blur-2xl font-semibold ",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                        className: "text-center text-3xl",
-                        children: isLoginForm ? "Login" : "signup"
-                    }, void 0, false, {
-                        fileName: "src/Components/Login.js",
-                        lineNumber: 104,
-                        columnNumber: 13
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
-                        className: "px-3 flex flex-col",
-                        onSubmit: isLoginForm ? handleLoginForm : handleSignUp,
-                        children: [
-                            !isLoginForm && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                children: [
-                                    "           ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                                        className: "text-2xl ",
-                                        for: "first",
-                                        children: "firstName:"
-                                    }, void 0, false, {
-                                        fileName: "src/Components/Login.js",
-                                        lineNumber: 106,
-                                        columnNumber: 46
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                        type: "text",
-                                        id: "first",
-                                        value: firstName,
-                                        onChange: (e)=>setFirstName(e.target.value),
-                                        className: "border border-black h-10"
-                                    }, void 0, false, {
-                                        fileName: "src/Components/Login.js",
-                                        lineNumber: 107,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                                        className: "text-2xl",
-                                        for: "last",
-                                        children: "lastName:"
-                                    }, void 0, false, {
-                                        fileName: "src/Components/Login.js",
-                                        lineNumber: 108,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                        type: "text",
-                                        id: "last",
-                                        value: lastName,
-                                        onChange: (e)=>setLastName(e.target.value),
-                                        className: "border border-black h-10 "
-                                    }, void 0, false, {
-                                        fileName: "src/Components/Login.js",
-                                        lineNumber: 110,
-                                        columnNumber: 17
-                                    }, undefined)
-                                ]
-                            }, void 0, true),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                                className: "text-2xl ",
-                                for: "Email",
-                                children: "Email:"
-                            }, void 0, false, {
-                                fileName: "src/Components/Login.js",
-                                lineNumber: 112,
-                                columnNumber: 17
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                type: "text",
-                                id: "Email",
-                                value: email,
-                                onChange: (e)=>setEmail(e.target.value),
-                                className: "border border-black h-10"
-                            }, void 0, false, {
-                                fileName: "src/Components/Login.js",
-                                lineNumber: 113,
-                                columnNumber: 17
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                                className: "text-2xl",
-                                for: "pass",
-                                children: "Password:"
-                            }, void 0, false, {
-                                fileName: "src/Components/Login.js",
-                                lineNumber: 114,
-                                columnNumber: 17
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                type: "password",
-                                id: "pass",
-                                value: password,
-                                onChange: (e)=>setPassword(e.target.value),
-                                className: "border border-black h-10 "
-                            }, void 0, false, {
-                                fileName: "src/Components/Login.js",
-                                lineNumber: 116,
-                                columnNumber: 17
-                            }, undefined),
-                            error && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                className: "text-red-500 text-sm md:text-2xl",
-                                children: error
-                            }, void 0, false, {
-                                fileName: "src/Components/Login.js",
-                                lineNumber: 118,
-                                columnNumber: 17
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                                type: "submit",
-                                className: "mx-20 border border-black rounded-md text-2xl my-3",
-                                children: isLoginForm ? "Login" : "signup"
-                            }, void 0, false, {
-                                fileName: "src/Components/Login.js",
-                                lineNumber: 120,
-                                columnNumber: 17
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                    className: "cursor-pointer ",
-                                    onClick: ()=>setIsLoginForm((value)=>!value),
-                                    children: isLoginForm ? "Dont have an account? signup" : "already have an account? login now"
+        className: "",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "relative h-screen w-full flex items-center justify-center",
+            style: {
+                backgroundImage: `url(${(0, _bgImageJpgDefault.default)})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat"
+            },
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    className: "absolute inset-0 bg-black/30 backdrop-blur-3xl"
+                }, void 0, false, {
+                    fileName: "src/Components/Login.js",
+                    lineNumber: 103,
+                    columnNumber: 9
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    className: "bg-neutral-100/30 h-fit w-80 border-2 py-10 border-black rounded-md  z-10 backdrop-blur-2xl font-semibold ",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                            className: "text-center text-3xl mb-5",
+                            children: isLoginForm ? "Login" : "Sign Up"
+                        }, void 0, false, {
+                            fileName: "src/Components/Login.js",
+                            lineNumber: 105,
+                            columnNumber: 13
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+                            className: "px-3 flex flex-col gap-1",
+                            onSubmit: isLoginForm ? handleLoginForm : handleSignUp,
+                            children: [
+                                !isLoginForm && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                                    children: [
+                                        "           ",
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                            className: "text-xl ",
+                                            for: "first",
+                                            children: "First Name"
+                                        }, void 0, false, {
+                                            fileName: "src/Components/Login.js",
+                                            lineNumber: 107,
+                                            columnNumber: 46
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                            type: "text",
+                                            id: "first",
+                                            value: firstName,
+                                            onChange: (e)=>setFirstName(e.target.value),
+                                            className: "rounded-md mb-3 border border-black h-10"
+                                        }, void 0, false, {
+                                            fileName: "src/Components/Login.js",
+                                            lineNumber: 108,
+                                            columnNumber: 17
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                            className: "text-xl ",
+                                            for: "last",
+                                            children: "Last Name"
+                                        }, void 0, false, {
+                                            fileName: "src/Components/Login.js",
+                                            lineNumber: 109,
+                                            columnNumber: 17
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                            type: "text",
+                                            id: "last",
+                                            value: lastName,
+                                            onChange: (e)=>setLastName(e.target.value),
+                                            className: "rounded-md mb-3 border border-black h-10 "
+                                        }, void 0, false, {
+                                            fileName: "src/Components/Login.js",
+                                            lineNumber: 111,
+                                            columnNumber: 17
+                                        }, undefined)
+                                    ]
+                                }, void 0, true),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                    className: "text-xl ",
+                                    for: "Email",
+                                    children: "Email:"
+                                }, void 0, false, {
+                                    fileName: "src/Components/Login.js",
+                                    lineNumber: 113,
+                                    columnNumber: 17
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                    type: "text",
+                                    id: "Email",
+                                    value: email,
+                                    onChange: (e)=>setEmail(e.target.value),
+                                    className: "rounded-md mb-3 border border-black h-10"
+                                }, void 0, false, {
+                                    fileName: "src/Components/Login.js",
+                                    lineNumber: 114,
+                                    columnNumber: 17
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                    className: "text-xl",
+                                    for: "pass",
+                                    children: "Password:"
+                                }, void 0, false, {
+                                    fileName: "src/Components/Login.js",
+                                    lineNumber: 116,
+                                    columnNumber: 17
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                    type: "password",
+                                    id: "pass",
+                                    value: password,
+                                    onChange: (e)=>setPassword(e.target.value),
+                                    className: "rounded-md border border-black h-10 "
+                                }, void 0, false, {
+                                    fileName: "src/Components/Login.js",
+                                    lineNumber: 117,
+                                    columnNumber: 17
+                                }, undefined),
+                                error && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                    className: "text-red-500 text-sm md:text-xl",
+                                    children: error
+                                }, void 0, false, {
+                                    fileName: "src/Components/Login.js",
+                                    lineNumber: 120,
+                                    columnNumber: 17
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                                    type: "submit",
+                                    className: "py-2 mt-5 border border-black rounded-lg text-xl my-3 w-full hover:scale-95 cursor-pointer bg-white",
+                                    children: isLoginForm ? "Login" : "Sign Up"
                                 }, void 0, false, {
                                     fileName: "src/Components/Login.js",
                                     lineNumber: 122,
-                                    columnNumber: 19
+                                    columnNumber: 17
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        className: "cursor-pointer ",
+                                        onClick: ()=>setIsLoginForm((value)=>!value),
+                                        children: isLoginForm ? "Don`t have an account? Sign Up" : "Already have an account? Login now"
+                                    }, void 0, false, {
+                                        fileName: "src/Components/Login.js",
+                                        lineNumber: 124,
+                                        columnNumber: 19
+                                    }, undefined)
+                                }, void 0, false, {
+                                    fileName: "src/Components/Login.js",
+                                    lineNumber: 123,
+                                    columnNumber: 17
                                 }, undefined)
-                            }, void 0, false, {
-                                fileName: "src/Components/Login.js",
-                                lineNumber: 121,
-                                columnNumber: 17
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/Components/Login.js",
-                        lineNumber: 105,
-                        columnNumber: 13
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/Components/Login.js",
-                lineNumber: 103,
-                columnNumber: 9
-            }, undefined)
-        ]
-    }, void 0, true, {
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Components/Login.js",
+                            lineNumber: 106,
+                            columnNumber: 13
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/Components/Login.js",
+                    lineNumber: 104,
+                    columnNumber: 9
+                }, undefined)
+            ]
+        }, void 0, true, {
+            fileName: "src/Components/Login.js",
+            lineNumber: 96,
+            columnNumber: 5
+        }, undefined)
+    }, void 0, false, {
         fileName: "src/Components/Login.js",
         lineNumber: 95,
         columnNumber: 5
@@ -40825,16 +40845,16 @@ const EditProfile = ({ user })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "relative flex justify-center bg-neutral-100/30 w-screen gap-5",
+                className: "relative flex md:flex-row flex-col justify-center items-center bg-neutral-100/30 w-screen gap-5",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         className: "",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                            className: " h-fit w-72 border-2 border-black rounded-md mt-20 z-10 backdrop-blur-2xl font-semibold ",
+                            className: " h-fit w-72 border-2 border-black rounded-md  z-10 backdrop-blur-2xl font-semibold ",
                             children: [
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
                                     className: "text-center text-3xl",
-                                    children: "Login"
+                                    children: "Edit Profile"
                                 }, void 0, false, {
                                     fileName: "src/Components/EditProfile.js",
                                     lineNumber: 42,
@@ -40849,7 +40869,7 @@ const EditProfile = ({ user })=>{
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                                                     className: "text-2xl ",
                                                     for: "first",
-                                                    children: "firstName:"
+                                                    children: "First Name"
                                                 }, void 0, false, {
                                                     fileName: "src/Components/EditProfile.js",
                                                     lineNumber: 45,
@@ -40887,7 +40907,7 @@ const EditProfile = ({ user })=>{
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                                                     className: "text-2xl",
                                                     for: "last",
-                                                    children: "lastName:"
+                                                    children: "Last Name"
                                                 }, void 0, false, {
                                                     fileName: "src/Components/EditProfile.js",
                                                     lineNumber: 49,
@@ -40925,7 +40945,7 @@ const EditProfile = ({ user })=>{
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                                                     className: "text-2xl",
                                                     for: "age",
-                                                    children: "Age:"
+                                                    children: "Age"
                                                 }, void 0, false, {
                                                     fileName: "src/Components/EditProfile.js",
                                                     lineNumber: 54,
@@ -40940,6 +40960,7 @@ const EditProfile = ({ user })=>{
                                                     type: "text",
                                                     id: "age",
                                                     value: age,
+                                                    required: true,
                                                     onChange: (e)=>setAge(e.target.value),
                                                     className: "border border-black h-10 w-full"
                                                 }, void 0, false, {
@@ -40950,7 +40971,7 @@ const EditProfile = ({ user })=>{
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                                     fileName: "src/Components/EditProfile.js",
                                                     lineNumber: 56,
-                                                    columnNumber: 152
+                                                    columnNumber: 161
                                                 }, undefined)
                                             ]
                                         }, void 0, true, {
@@ -40963,7 +40984,7 @@ const EditProfile = ({ user })=>{
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                                                     className: "text-2xl",
                                                     for: "photo",
-                                                    children: "photo:"
+                                                    children: "Photo URL"
                                                 }, void 0, false, {
                                                     fileName: "src/Components/EditProfile.js",
                                                     lineNumber: 58,
@@ -40972,7 +40993,7 @@ const EditProfile = ({ user })=>{
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                                     fileName: "src/Components/EditProfile.js",
                                                     lineNumber: 58,
-                                                    columnNumber: 74
+                                                    columnNumber: 77
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                                                     type: "text",
@@ -41006,7 +41027,7 @@ const EditProfile = ({ user })=>{
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                                             type: "submit",
-                                            className: "mx-20 border border-black rounded-md text-2xl my-3",
+                                            className: "w-full border border-black rounded-md text-2xl my-3",
                                             children: "Save Profile"
                                         }, void 0, false, {
                                             fileName: "src/Components/EditProfile.js",
@@ -41031,19 +41052,30 @@ const EditProfile = ({ user })=>{
                         columnNumber: 5
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userCardDefault.default), {
-                            user: {
-                                firstName,
-                                lastName,
-                                age,
-                                photoURL
-                            }
-                        }, void 0, false, {
-                            fileName: "src/Components/EditProfile.js",
-                            lineNumber: 74,
-                            columnNumber: 9
-                        }, undefined)
-                    }, void 0, false, {
+                        className: "flex flex-col gap-3",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                className: "font-semibold text-center bg-blue-200 mx-5 py-2 md:text-lg",
+                                children: "How Your Profile will Look "
+                            }, void 0, false, {
+                                fileName: "src/Components/EditProfile.js",
+                                lineNumber: 75,
+                                columnNumber: 9
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userCardDefault.default), {
+                                user: {
+                                    firstName,
+                                    lastName,
+                                    age,
+                                    photoURL
+                                }
+                            }, void 0, false, {
+                                fileName: "src/Components/EditProfile.js",
+                                lineNumber: 77,
+                                columnNumber: 9
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
                         fileName: "src/Components/EditProfile.js",
                         lineNumber: 73,
                         columnNumber: 9
@@ -41060,12 +41092,12 @@ const EditProfile = ({ user })=>{
                     children: "Profile Updated Successfully"
                 }, void 0, false, {
                     fileName: "src/Components/EditProfile.js",
-                    lineNumber: 79,
+                    lineNumber: 82,
                     columnNumber: 3
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/Components/EditProfile.js",
-                lineNumber: 78,
+                lineNumber: 81,
                 columnNumber: 9
             }, undefined),
             ";"
@@ -45903,7 +45935,7 @@ const Connections = ()=>{
         columnNumber: 42
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: " flex flex-col items-center gap-5",
+        className: " flex flex-col items-center gap-5 min-h-screen px-3 ",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
                 className: "font-bold text-3xl text-center",
@@ -45914,7 +45946,7 @@ const Connections = ()=>{
                 columnNumber: 5
             }, undefined),
             connection.map((con, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "flex items-center bg-gray-200 shadow-md rounded-lg p-4 w-96 gap-4 ",
+                    className: "flex items-center bg-gray-200 shadow-md rounded-lg p-4 md:w-96 gap-4 w-full",
                     children: [
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                             src: con.photoURL,
@@ -46038,7 +46070,7 @@ const Request = ()=>{
         columnNumber: 38
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "top-20 flex flex-col items-center gap-5",
+        className: "top-20 flex flex-col items-center gap-5 px-3 min-h-screen",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
                 className: "font-bold text-3xl text-center",
@@ -46049,7 +46081,7 @@ const Request = ()=>{
                 columnNumber: 13
             }, undefined),
             request.map((req, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "flex items-center bg-gray-200 shadow-md rounded-lg p-4 w-96 gap-4",
+                    className: "flex items-center bg-gray-200 shadow-md rounded-lg p-4 md:w-96 w-full gap-4",
                     children: [
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                             src: req.fromUserId.photoURL,

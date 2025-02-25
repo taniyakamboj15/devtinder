@@ -11,6 +11,7 @@
   "description": "",
   "devDependencies": {
     "buffer": "^6.0.3",
+    "daisyui": "^5.0.0-beta.8",
     "parcel": "^2.13.3",
     "process": "^0.11.10"
   },

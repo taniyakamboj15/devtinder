@@ -27,13 +27,13 @@ const [connection,setConnection] = useState([]);
         if(connection.length=== 0)return <h1>No connection found</h1>;
     
   return (
-    <div className=" flex flex-col items-center gap-5">
+    <div className=" flex flex-col items-center gap-5 min-h-screen px-3 ">
     <h1 className="font-bold text-3xl text-center">Connections</h1>
     
     {connection.map((con, index) => (
       <div 
         key={index} 
-        className="flex items-center bg-gray-200 shadow-md rounded-lg p-4 w-96 gap-4 "
+        className="flex items-center bg-gray-200 shadow-md rounded-lg p-4 md:w-96 gap-4 w-full"
       >
         {/* User Image - Rounded */}
         <img 
