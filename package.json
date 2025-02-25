@@ -1,7 +1,6 @@
 {
   "name": "devtinderproject",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "start": "parcel public/index.html",
     "build": "parcel build public/index.html",
