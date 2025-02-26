@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Base_URL } from '../utils/Constants';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Shimmer from './Shimmer';
+import { addRequest, removeRequest } from '../redux/requestsSlice';
+import useFindRequest from '../hooks/usefindRequests';
 
 const Request = () => {
 const navigate = useNavigate();
-const [request, setRequest] = useState([]);
-const [loading , setLoading] = useState(true);
+const request = useSelector((store) => store.request)
+
+const dispatch = useDispatch();
 const user = useSelector((store)=>store.user);
 useEffect(() => {
   if (!user) {
     navigate("/");
   }
 }, [user, navigate]);
-
+const {loading} = useFindRequest();
 const requestReview = async(status,_id)=>{
         const response = await fetch(Base_URL+"/request/review/"+status+"/"+_id,{
             method:"PUT",
@@ -24,38 +27,10 @@ const requestReview = async(status,_id)=>{
             credentials:"include",
         })
         if(response.ok){
-            fetchRequest();
-            
+           dispatch(removeRequest(_id))  
         }
     }
 
-    const fetchRequest = async () => {
-        console.log("useEffect called fetchRequest");
-        try {
-            const response = await fetch(`${Base_URL}/user/requests/received`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            });
-
-            const data = await response.json();
-            setRequest(data.data);
-            console.log("API Response:", data);
-        } catch (err) {
-            console.error("Error fetching requests:", err);
-        }finally{
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        console.log("useEffect is called ");
-        fetchRequest();
-    }, []);
-
-    console.log(request);
 
     if(loading) return <Shimmer />
     if (request.length === 0) return <h1 className="top-20 text-3xl font-bold text-center">No Requests</h1>;
@@ -90,10 +65,10 @@ const requestReview = async(status,_id)=>{
 
                         {/* Buttons - Aligned Right */}
                         <div className="flex justify-end gap-3 mt-3">
-                            <button className="bg-green-500 text-white px-4 py-1 rounded-md hover:bg-green-600"onClick={() => {requestReview("accepted",req._id)}}>
+                            <button className="bg-green-500 text-white px-4 py-1 rounded-md hover:bg-green-600 active:scale-95"onClick={() => {requestReview("accepted",req._id)}}>
                                 Accept
                             </button>
-                            <button className="bg-red-500 text-white px-4 py-1 rounded-md hover:bg-red-600" onClick={() => {requestReview("rejected",req._id)}}>
+                            <button className="bg-red-500 text-white px-4 py-1 rounded-md hover:bg-red-600 active:scale-95" onClick={() => {requestReview("rejected",req._id)}}>
                                 Reject
                             </button>
                         </div>

@@ -10,6 +10,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const request = useSelector((store) => store.request);
 
   const handleLogOut = async () => {
     const response = await fetch(Base_URL + "/logout", {
@@ -28,8 +29,8 @@ const Header = () => {
   const user = useSelector((store) => store.user);
 
   return (
-    <div className={`${location.pathname === "/login" ? "absolute" : ""}`}>
-      <div className="bg-gradient-to-b from-black z-20 sticky top-0 w-screen flex flex-row justify-between items-center px-3 md:px-10 py-3">
+<div className={`${["/login", "/profile"].includes(location.pathname) ? "absolute" : ""}`}>
+<div className="bg-gradient-to-b from-black z-20 sticky top-0 w-screen flex flex-row justify-between items-center px-3 md:px-10 py-3">
         <Link to="/">
           <img className='w-32 md:w-40' src={logo} alt="logo" />
         </Link>
@@ -41,9 +42,10 @@ const Header = () => {
             </div>
             {isOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+                <Link to="/" className={`px-4 py-2 text-gray-700 hover:bg-gray-100 ${location.pathname == "/" ? "hidden" : "block"}`} >Home</Link>
                 <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit Profile</Link>
                 <Link to="/connection" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Connections</Link>
-                <Link to="/request" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Request</Link>
+                <Link to="/request" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Request  <sup className='text-blue-400 font-bold'>{request.length}</sup></Link>
                 <button onClick={handleLogOut} className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</button>
               </div>
             )}

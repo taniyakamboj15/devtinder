@@ -29,8 +29,8 @@ const UserCard = ({user}) => {
         <p className='text-white text-2xl '>{age}</p>
       </div>
       <div className='flex gap-5 my-5 justify-center'>
-        <button className={`border border-black rounded-md bg-pink-400 p-2 w-24 ${location.pathname === "/profile" ? "hidden" :"block "}`}onClick={()=>{handleSendRequest("interested",_id)}}>interested</button>
-        <button  className={`border border-black rounded-md bg-blue-400 w-24 p-2 ${location.pathname === "/profile" ? "hidden" :"block "} `}onClick={()=>{handleSendRequest("ignored",_id)}}>ignore</button>
+        <button className={`border border-black rounded-md bg-pink-400 p-2 w-24 active:scale-95 ${location.pathname === "/profile" ? "hidden" :"block "}`}onClick={()=>{handleSendRequest("interested",_id)}}>Interested</button>
+        <button  className={`border border-black rounded-md bg-blue-400 w-24 p-2 active:scale-95 ${location.pathname === "/profile" ? "hidden" :"block "} `}onClick={()=>{handleSendRequest("ignored",_id)}}>Ignore</button>
 
       </div>
     </div>

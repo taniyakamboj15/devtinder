@@ -15,6 +15,7 @@ const Login = () => {
     const[password,setPassword]= useState("");
     const [error , setError] = useState("")
     const dispatch = useDispatch();
+    const [signingUp, setSigningUp] = useState(false);
     const userData = useSelector((store)=>store.user);
 
     const handleLoginForm =async(e)=>{
@@ -47,6 +48,7 @@ const Login = () => {
     }}
     const handleSignUp = async(e)=>{
       e.preventDefault();
+      setSigningUp(true)
       try{
       const response = await fetch(Base_URL+"/signup",{
           method:"POST",
@@ -71,7 +73,11 @@ const Login = () => {
 
   }catch(err){
       console.log(err);
-  }}
+  }finally{
+    setSigningUp(false);
+  }
+
+}
 
     
     const fetchData =async()=>{
@@ -105,22 +111,27 @@ const Login = () => {
             <h1 className='text-center text-3xl mb-5'>{isLoginForm ? "Login" : "Sign Up"}</h1>
             <form className='px-3 flex flex-col gap-1'  onSubmit={isLoginForm ? handleLoginForm : handleSignUp}>
               {!isLoginForm && (<>           <label className='text-xl ' for="first">First Name</label>
-                <input type="text" id="first" value={firstName} onChange={(e)=>setFirstName(e.target.value)} className='rounded-md mb-3 border border-black h-10' ></input>
+                <input type="text" id="first" value={firstName} onChange={(e)=>setFirstName(e.target.value)} className='focus:ring-2 focus:ring-indigo-500 rounded-md mb-3 border border-black h-10' ></input>
                 <label className='text-xl 'for="last">Last Name</label>
                 
-                <input type="text" id="last" value={lastName} onChange={(e)=>setLastName(e.target.value)} className='rounded-md mb-3 border border-black h-10 '></input></>)}
+                <input type="text" id="last" value={lastName} onChange={(e)=>setLastName(e.target.value)} className='focus:ring-2 focus:ring-indigo-500 rounded-md mb-3 border border-black h-10 '></input></>)}
               
                 <label className='text-xl ' for="Email">Email:</label>
-                <input type="text" id="Email" value={email} onChange={(e)=>setEmail(e.target.value)} className='rounded-md mb-3 border border-black h-10' ></input>
+                <input type="text" id="Email" value={email} onChange={(e)=>setEmail(e.target.value)} className='focus:ring-2 focus:ring-indigo-500 rounded-md mb-3 border border-black h-10' ></input>
               
                 <label className='text-xl'for="pass">Password:</label>
-                <input type="password" id="pass" value={password} onChange={(e)=>setPassword(e.target.value)} className='rounded-md border border-black h-10 '></input>
+                <input type="password" id="pass" value={password} onChange={(e)=>setPassword(e.target.value)} className='focus:ring-2 focus:ring-indigo-500 rounded-md border border-black h-10 '></input>
                
                 {error && (
                 <p className='text-red-500 text-sm md:text-xl'>{error}</p>
               )}
-                <button type='submit' className="py-2 mt-5 border border-black rounded-lg text-xl my-3 w-full hover:scale-95 cursor-pointer bg-white">{isLoginForm ? "Login" : "Sign Up"}</button>
-                <div>
+<button
+  type="submit"
+  className="py-2 mt-5 border border-black rounded-lg text-xl my-3 w-full active:scale-95 cursor-pointer bg-white"
+  disabled={signingUp && !isLoginForm} // Only disable for Sign-Up
+>
+  {isLoginForm ? "Login" : signingUp ? "Signing Up..." : "Sign Up"}
+</button>                <div>
                   <p className='cursor-pointer ' onClick={()=>setIsLoginForm((value)=> !value)}>{isLoginForm ? "Don`t have an account? Sign Up" : "Already have an account? Login now"}</p>
                 </div>
             </form>

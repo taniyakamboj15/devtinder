@@ -15,7 +15,7 @@ useEffect(() => {
     navigate("/");
   }
 }, [user, navigate]);
-        const fetchConnection = async()=>{
+const fetchConnection = async()=>{
             try{
                 const response = await fetch(Base_URL+"/user/connection",{
                     method:"GET",

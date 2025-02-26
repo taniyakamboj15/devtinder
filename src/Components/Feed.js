@@ -3,10 +3,12 @@ import { Base_URL } from '../utils/Constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { addFeed } from '../redux/feedSlice'
 import UserCard from './UserCard'
+import useFindRequest from '../hooks/usefindRequests'
 
 const Feed = () => {
     const dispatch = useDispatch();
     const feed = useSelector((store)=>store.feed);
+    useFindRequest();
     const fetchData =async()=>{
         try{
     const response = await fetch(Base_URL+"/user/feed",{
