@@ -40756,26 +40756,35 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _editProfile = require("./EditProfile");
 var _editProfileDefault = parcelHelpers.interopDefault(_editProfile);
 var _reactRedux = require("react-redux");
+var _reactRouterDom = require("react-router-dom");
 var _s = $RefreshSig$();
 const Profile = ()=>{
     _s();
+    const navigate = (0, _reactRouterDom.useNavigate)();
     const user = (0, _reactRedux.useSelector)((store)=>store.user);
+    (0, _react.useEffect)(()=>{
+        if (!user) navigate("/");
+    }, [
+        user,
+        navigate
+    ]);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _editProfileDefault.default), {
             user: user
         }, void 0, false, {
             fileName: "src/Components/Profile.js",
-            lineNumber: 10,
+            lineNumber: 18,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/Components/Profile.js",
-        lineNumber: 8,
+        lineNumber: 16,
         columnNumber: 5
     }, undefined);
 };
-_s(Profile, "ODc3cjw/vvoWaLFqHWcEGODyOfo=", false, function() {
+_s(Profile, "KCPFDxShwuI/RNu9mIH271JNdsw=", false, function() {
     return [
+        (0, _reactRouterDom.useNavigate),
         (0, _reactRedux.useSelector)
     ];
 });
@@ -40789,7 +40798,7 @@ $RefreshReg$(_c, "Profile");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./EditProfile":"gc8qX","react-redux":"62sf7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"gc8qX":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./EditProfile":"gc8qX","react-redux":"62sf7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-router-dom":"9xmpe"}],"gc8qX":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$72f6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -45906,10 +45915,20 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _constants = require("../utils/Constants");
+var _reactRouterDom = require("react-router-dom");
+var _reactRedux = require("react-redux");
 var _s = $RefreshSig$();
 const Connections = ()=>{
     _s();
     const [connection, setConnection] = (0, _react.useState)([]);
+    const navigate = (0, _reactRouterDom.useNavigate)();
+    const user = (0, _reactRedux.useSelector)((store)=>store.user);
+    (0, _react.useEffect)(()=>{
+        if (!user) navigate("/");
+    }, [
+        user,
+        navigate
+    ]);
     const fetchConnection = async ()=>{
         try {
             const response = await fetch((0, _constants.Base_URL) + "/user/connection", {
@@ -45931,7 +45950,7 @@ const Connections = ()=>{
         children: "No connection found"
     }, void 0, false, {
         fileName: "src/Components/Connections.js",
-        lineNumber: 27,
+        lineNumber: 37,
         columnNumber: 42
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -45942,7 +45961,7 @@ const Connections = ()=>{
                 children: "Connections"
             }, void 0, false, {
                 fileName: "src/Components/Connections.js",
-                lineNumber: 31,
+                lineNumber: 41,
                 columnNumber: 5
             }, undefined),
             connection.map((con, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -45954,7 +45973,7 @@ const Connections = ()=>{
                             className: "w-16 h-16 rounded-full object-cover"
                         }, void 0, false, {
                             fileName: "src/Components/Connections.js",
-                            lineNumber: 39,
+                            lineNumber: 49,
                             columnNumber: 9
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -45968,7 +45987,7 @@ const Connections = ()=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/Components/Connections.js",
-                                    lineNumber: 47,
+                                    lineNumber: 57,
                                     columnNumber: 11
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
@@ -45979,29 +45998,34 @@ const Connections = ()=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/Components/Connections.js",
-                                    lineNumber: 48,
+                                    lineNumber: 58,
                                     columnNumber: 11
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/Components/Connections.js",
-                            lineNumber: 46,
+                            lineNumber: 56,
                             columnNumber: 9
                         }, undefined)
                     ]
                 }, index, true, {
                     fileName: "src/Components/Connections.js",
-                    lineNumber: 34,
+                    lineNumber: 44,
                     columnNumber: 7
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/Components/Connections.js",
-        lineNumber: 30,
+        lineNumber: 40,
         columnNumber: 5
     }, undefined);
 };
-_s(Connections, "jVa/PBQ5xl8cqX1/0A+9UnlcmpE=");
+_s(Connections, "hKhpk5KmH2+4FyKfGsJmpXvdSgY=", false, function() {
+    return [
+        (0, _reactRouterDom.useNavigate),
+        (0, _reactRedux.useSelector)
+    ];
+});
 _c = Connections;
 exports.default = Connections;
 var _c;
@@ -46012,7 +46036,7 @@ $RefreshReg$(_c, "Connections");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/Constants":"icYMm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"6bEmM":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/Constants":"icYMm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-router-dom":"9xmpe","react-redux":"62sf7"}],"6bEmM":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$fd99 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -46025,9 +46049,19 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _constants = require("../utils/Constants");
+var _reactRouterDom = require("react-router-dom");
+var _reactRedux = require("react-redux");
 var _s = $RefreshSig$();
 const Request = ()=>{
     _s();
+    const navigate = (0, _reactRouterDom.useNavigate)();
+    const user = (0, _reactRedux.useSelector)((store)=>store.user);
+    (0, _react.useEffect)(()=>{
+        if (!user) navigate("/");
+    }, [
+        user,
+        navigate
+    ]);
     const [request, setRequest] = (0, _react.useState)([]);
     const requestReview = async (status, _id)=>{
         const response = await fetch((0, _constants.Base_URL) + "/request/review/" + status + "/" + _id, {
@@ -46066,7 +46100,7 @@ const Request = ()=>{
         children: "No Requests"
     }, void 0, false, {
         fileName: "src/Components/Request.js",
-        lineNumber: 46,
+        lineNumber: 56,
         columnNumber: 38
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -46077,7 +46111,7 @@ const Request = ()=>{
                 children: "Requests"
             }, void 0, false, {
                 fileName: "src/Components/Request.js",
-                lineNumber: 50,
+                lineNumber: 60,
                 columnNumber: 13
             }, undefined),
             request.map((req, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -46089,7 +46123,7 @@ const Request = ()=>{
                             className: "w-16 h-16 rounded-full object-cover"
                         }, void 0, false, {
                             fileName: "src/Components/Request.js",
-                            lineNumber: 58,
+                            lineNumber: 68,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -46108,7 +46142,7 @@ const Request = ()=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "src/Components/Request.js",
-                                                lineNumber: 69,
+                                                lineNumber: 79,
                                                 columnNumber: 33
                                             }, undefined),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
@@ -46119,18 +46153,18 @@ const Request = ()=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "src/Components/Request.js",
-                                                lineNumber: 72,
+                                                lineNumber: 82,
                                                 columnNumber: 33
                                             }, undefined)
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/Components/Request.js",
-                                        lineNumber: 68,
+                                        lineNumber: 78,
                                         columnNumber: 29
                                     }, undefined)
                                 }, void 0, false, {
                                     fileName: "src/Components/Request.js",
-                                    lineNumber: 67,
+                                    lineNumber: 77,
                                     columnNumber: 25
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -46144,7 +46178,7 @@ const Request = ()=>{
                                             children: "Accept"
                                         }, void 0, false, {
                                             fileName: "src/Components/Request.js",
-                                            lineNumber: 78,
+                                            lineNumber: 88,
                                             columnNumber: 29
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -46155,35 +46189,40 @@ const Request = ()=>{
                                             children: "Reject"
                                         }, void 0, false, {
                                             fileName: "src/Components/Request.js",
-                                            lineNumber: 81,
+                                            lineNumber: 91,
                                             columnNumber: 29
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/Components/Request.js",
-                                    lineNumber: 77,
+                                    lineNumber: 87,
                                     columnNumber: 25
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/Components/Request.js",
-                            lineNumber: 65,
+                            lineNumber: 75,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, index, true, {
                     fileName: "src/Components/Request.js",
-                    lineNumber: 53,
+                    lineNumber: 63,
                     columnNumber: 17
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/Components/Request.js",
-        lineNumber: 49,
+        lineNumber: 59,
         columnNumber: 9
     }, undefined);
 };
-_s(Request, "BWrn+xY8C6lIWYY+3MjwbA1uVhM=");
+_s(Request, "sd3RC24354EjxTQVUKSLdO7TERU=", false, function() {
+    return [
+        (0, _reactRouterDom.useNavigate),
+        (0, _reactRedux.useSelector)
+    ];
+});
 _c = Request;
 exports.default = Request;
 var _c;
@@ -46194,6 +46233,6 @@ $RefreshReg$(_c, "Request");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/Constants":"icYMm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["aQL8O","9w8YQ","bNKaB"], "bNKaB", "parcelRequire94c2")
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/Constants":"icYMm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-router-dom":"9xmpe","react-redux":"62sf7"}]},["aQL8O","9w8YQ","bNKaB"], "bNKaB", "parcelRequire94c2")
 
 //# sourceMappingURL=index.0641b553.js.map

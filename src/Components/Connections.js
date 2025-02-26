@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Base_URL } from '../utils/Constants'
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Connections = () => {
 const [connection,setConnection] = useState([]);
+const navigate = useNavigate();
+
+const user = useSelector((store)=>store.user);
+useEffect(() => {
+  if (!user) {
+    navigate("/");
+  }
+}, [user, navigate]);
         const fetchConnection = async()=>{
             try{
                 const response = await fetch(Base_URL+"/user/connection",{

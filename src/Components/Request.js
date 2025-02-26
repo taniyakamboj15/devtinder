@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Base_URL } from '../utils/Constants';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Request = () => {
+const navigate = useNavigate();
+
+const user = useSelector((store)=>store.user);
+useEffect(() => {
+  if (!user) {
+    navigate("/");
+  }
+}, [user, navigate]);
     const [request, setRequest] = useState([]);
     const requestReview = async(status,_id)=>{
         const response = await fetch(Base_URL+"/request/review/"+status+"/"+_id,{
