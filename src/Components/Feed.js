@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addFeed } from '../redux/feedSlice'
 import UserCard from './UserCard'
 import useFindRequest from '../hooks/usefindRequests'
+import ShimmerCard from './ShimmerCard'
 
 const Feed = () => {
     const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const Feed = () => {
         fetchData();
 
     },[])
-    if(!feed) return;
+    if(!feed) <ShimmerCard />;
     if(feed.length === 0) return <h1 className='text-center text-red-200 text-2xl font-semibold'>No new user found</h1>
   return (
     <div className='min-h-screen'>
