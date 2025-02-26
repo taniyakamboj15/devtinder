@@ -13,7 +13,7 @@ const Body = () => {
   const fetchUser = async() => {
    if(userData)return;
   try{
-    console.log("fetch called");
+    
   const response = await fetch(Base_URL+"/profile/view",{
     method:"GET",
     headers:{
@@ -34,7 +34,7 @@ const Body = () => {
     }
   }
   useEffect(()=>{
-    console.log("useffect called")
+    
     fetchUser();
 
   },[]);
