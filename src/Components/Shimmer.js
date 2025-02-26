@@ -3,7 +3,7 @@ import React from "react";
 const Shimmer = () => {
   return (
     <div className="flex flex-col items-center gap-5 min-h-screen px-3">
-      <h1 className="font-bold text-3xl text-center text-gray-400">Loading Connections...</h1>
+      <h1 className="font-bold text-3xl text-center text-gray-400">Loading</h1>
 
       {/* Render 5 shimmering skeletons */}
       {Array(5)
