@@ -2,18 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Base_URL } from '../utils/Constants';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Shimmer from './Shimmer';
 
 const Request = () => {
 const navigate = useNavigate();
-
+const [request, setRequest] = useState([]);
+const [loading , setLoading] = useState(true);
 const user = useSelector((store)=>store.user);
 useEffect(() => {
   if (!user) {
     navigate("/");
   }
 }, [user, navigate]);
-    const [request, setRequest] = useState([]);
-    const requestReview = async(status,_id)=>{
+
+const requestReview = async(status,_id)=>{
         const response = await fetch(Base_URL+"/request/review/"+status+"/"+_id,{
             method:"PUT",
             headers:{
@@ -43,6 +45,8 @@ useEffect(() => {
             console.log("API Response:", data);
         } catch (err) {
             console.error("Error fetching requests:", err);
+        }finally{
+            setLoading(false);
         }
     };
 
@@ -53,6 +57,7 @@ useEffect(() => {
 
     console.log(request);
 
+    if(loading) return <Shimmer />
     if (request.length === 0) return <h1 className="top-20 text-3xl font-bold text-center">No Requests</h1>;
 
     return (
