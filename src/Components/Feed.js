@@ -32,7 +32,7 @@ const Feed = () => {
         fetchData();
 
     },[])
-    if(!feed) <ShimmerCard />;
+    if(!feed) return <ShimmerCard />;
     if(feed.length === 0) return <h1 className='text-center text-red-200 text-2xl font-semibold'>No new user found</h1>
   return (
     <div className='min-h-screen'>
