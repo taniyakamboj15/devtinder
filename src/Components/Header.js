@@ -37,7 +37,7 @@ const Header = () => {
           <div className="relative">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
               <h1 className="font-bold">Welcome {user.firstName}</h1>
-              <img src={user.photoURL} alt="user icon" className="rounded-full h-8 w-8 md:h-14" />
+              <img src={user.photoURL} alt="user icon" className="rounded-full h-8 w-8  object-cover md:h-14 md:w-14" />
             </div>
             {isOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
