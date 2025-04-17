@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../constants/constants";
 import { addFeed } from "../Slices/feedSlice";
 import ShimmerCard from "./ShimmerCard";
-import useFindRequest from "../hooks/useFindRequest";
+import useFindRequest from "../hooks/usefindRequest";
 
 const Feed = () => {
   const dispatch = useDispatch();
