@@ -1,4 +1,4 @@
 export const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "dev-tinder-backend-three.vercel.app"
+    ? "https://dev-tinder-backend-three.vercel.app"
     : "http://localhost:3000";
