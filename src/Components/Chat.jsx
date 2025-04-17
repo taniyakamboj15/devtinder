@@ -45,7 +45,6 @@ const Chat = () => {
         credentials: "include",
       });
       const { data } = await response.json();
-      // Decrypt each message
       const decrypted = data.message.map((msg) => ({
         ...msg,
         text: decryptMessage(msg.text, encryptionKey),
@@ -70,7 +69,6 @@ const Chat = () => {
     }
   }, [targetUserId]);
 
-  // Setup WebSocket Connection with encryption logic
   useEffect(() => {
     if (!userId || !targetUserId || !encryptionKey) return;
 
@@ -80,7 +78,6 @@ const Chat = () => {
     socket.emit("joinChat", { firstName, userId, targetUserId });
 
     socket.on("messageReceived", (message) => {
-      // Decrypt incoming text
       const decryptedText = decryptMessage(message.text, encryptionKey);
       setNewMessage((prev) => [...prev, { ...message, text: decryptedText }]);
     });
@@ -95,14 +92,12 @@ const Chat = () => {
     };
   }, [userId, targetUserId, encryptionKey, firstName]);
 
-  // Auto-scroll
   useEffect(() => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [newMessage, typing]);
 
-  // Send encrypted message
   const sendMessage = () => {
     if (
       !socketRef.current ||
@@ -121,20 +116,9 @@ const Chat = () => {
       userImage: photoURL,
     });
 
-    // Locally append decrypted version
-    setNewMessage((prev) => [
-      ...prev,
-      {
-        senderId: { _id: userId, firstName, photoURL },
-        text: inputMessage.trim(),
-        createdAt: new Date().toISOString(),
-      },
-    ]);
-
     setInputMessage("");
   };
 
-  // Typing indicator
   const handleInputChange = (e) => {
     setInputMessage(e.target.value);
     if (socketRef.current) {
