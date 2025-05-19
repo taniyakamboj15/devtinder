@@ -1,4 +1,4 @@
-# 💘 devTinder – Frontend
+#  devTinder – Frontend
 
 A sleek social chat platform for developers where you can discover, connect, and communicate with fellow devs. Users can send/accept/remove friend requests and chat with their added friends through secure end-to-end encrypted (E2EE) messaging.
 
