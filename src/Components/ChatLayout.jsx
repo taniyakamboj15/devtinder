@@ -1,48 +1,55 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { Outlet, useNavigate, useParams, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { BASE_URL } from "../constants/constants";
 import { getSharedKey, decryptMessage } from "../utils/encryption";
 import fetchChats from "../utils/getAllChats";
+import { useDispatch } from "react-redux";
 import OnlineIndicator from "../Components/OnlineIndicator";
 import {
   getFormattedDay,
   getFormattedTime,
 } from "../utils/getFormatDayandTime";
+import { FaArrowLeft } from "react-icons/fa";
 
 const ChatLayout = () => {
   const { targetUserId } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const userId = useSelector((state) => state.user?.data?._id);
   const chats = useSelector((state) => state.chats?.chats) || [];
   const dispatch = useDispatch();
-
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     fetchChats(dispatch);
+  }, [dispatch]);
 
+  useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobileView(window.innerWidth < 768);
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [dispatch]);
+  }, []);
 
-  const openChat = (id) => navigate(`/chat/${id}`);
+  const openChat = (id) => {
+    navigate(`/chat/${id}`);
+  };
 
-  // Conditionally render panels
-  const showSidebarOnly = isMobile && !targetUserId;
-  const showChatOnly = isMobile && targetUserId;
+  // Show only chat list on mobile when no chat is selected
+  const showOnlyList = isMobileView && targetUserId;
+  // Show only chat window on mobile when chat is selected
+  const showOnlyChat = isMobileView && targetUserId;
+  // Show both on desktop
+  const showBoth = !isMobileView;
 
   return (
-    <div className='flex h-[93vh] overflow-y-clip'>
-      {/* Sidebar */}
-      {!showChatOnly && (
-        <div
-          className={`w-full md:w-1/3 border-r border-gray-300 bg-white overflow-y-auto`}
-        >
+    <div className='flex h-[calc(100vh-34px)] md:h-[calc(100vh-50px)]'>
+      {/* Sidebar - shown on desktop always, on mobile only when no chat selected */}
+      {(showBoth || !targetUserId) && (
+        <div className='w-full md:w-1/3 border-r border-gray-300 bg-white overflow-y-auto'>
           <div className='p-4 text-xl font-semibold border-b'>Chats</div>
           {chats.length === 0 && (
             <p className='text-center text-gray-500 p-4'>No chats yet</p>
@@ -61,7 +68,7 @@ const ChatLayout = () => {
               <div
                 key={chat.chatId}
                 onClick={() => openChat(otherUser._id)}
-                className={`cursor-pointer px-4 py-3 hover:bg-gray-100 flex items-center gap-3 ${
+                className={`cursor-pointer px-4 py-3 hover:bg-gray-100 flex items-center gap-3 border-b-2 border-gray-600 ${
                   targetUserId === otherUser._id ? "bg-gray-200" : ""
                 }`}
               >
@@ -72,16 +79,16 @@ const ChatLayout = () => {
                 />
                 <div className='flex-1'>
                   <div className='flex items-center justify-between'>
-                    <div className='flex items-center gap-2'>
+                    <div className='flex items-center'>
                       <span>{chat.user.name}</span>
                       <OnlineIndicator userId={chat.user._id} />
                     </div>
-                    <div className='text-gray-600 text-sm'>
+                    <div className='text-gray-600'>
                       {getFormattedDay(chat.lastMessage.time)}
                     </div>
                   </div>
                   <div className='text-sm text-gray-600 flex justify-between items-center'>
-                    <div className='truncate'>
+                    <div className='text-sm text-gray-600 truncate'>
                       {chat.lastMessage.senderId === userId
                         ? "You:"
                         : chat.lastMessage.senderName}
@@ -106,11 +113,19 @@ const ChatLayout = () => {
         </div>
       )}
 
-      {/* Chat window */}
-      {!showSidebarOnly && (
-        <div className={`w-full md:w-2/3 bg-gray-100`}>
-          {!targetUserId ? (
-            <div className='h-full flex items-center justify-center text-gray-600 text-xl'>
+      {/* Chat window - shown on desktop always, on mobile only when chat selected */}
+      {(showBoth || targetUserId) && (
+        <div className='w-full md:w-2/3 bg-gray-100 flex flex-col'>
+          {/* {isMobileView && targetUserId && (
+            // <button
+            //   onClick={handleBackToChatList}
+            //   className='p-2 text-gray-600 hover:text-gray-800 md:hidden'
+            // >
+            //   <FaArrowLeft size={20} />
+            // </button>
+          )} */}
+          {!targetUserId && showBoth ? (
+            <div className='text-center text-gray-600 text-xl m-auto'>
               Start chatting with your friend
             </div>
           ) : (

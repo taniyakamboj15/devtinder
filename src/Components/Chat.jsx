@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../constants/constants";
 import { getSocket } from "../constants/socket";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,7 @@ import {
   decryptMessage,
 } from "../utils/encryption";
 import fetchChats from "../utils/getAllChats";
-
+import { FaArrowLeft } from "react-icons/fa";
 const Chat = () => {
   const { targetUserId } = useParams();
   const [chatInfo, setChatInfo] = useState(null);
@@ -30,6 +30,8 @@ const Chat = () => {
   const chats = useSelector((store) => store.chats?.chats) || [];
   const userId = useSelector((store) => store.user?.data?._id);
   const data = useSelector((store) => store.user?.data) || {};
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
+  const navigate = useNavigate();
   const { firstName, photoURL } = data;
   console.log("chatid :", chatId);
   // Generate shared key for E2EE (AES-256) once both IDs available
@@ -145,6 +147,15 @@ const Chat = () => {
   }, [chatId, encryptionKey, targetUserId, userId, dispatch]);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
     const socket = socketRef.current;
     if (!socket || !targetUserId || !userId) return;
     socket.emit("markSeen", {
@@ -209,14 +220,25 @@ const Chat = () => {
     fetchChatFriendInfo();
     fetchChatMessage();
   }, [fetchChatFriendInfo, fetchChatMessage]);
+  const handleBackToChatList = () => {
+    navigate("/chat");
+  };
 
   if (!chatInfo) return null;
 
   return (
-    <div className='md:w-full h-full md:mx-auto bg-gradient-to-br from-teal-100 to-indigo-400 text-gray-500 border-2 border-fuchsia-50 rounded-lg relative flex flex-col mx-2'>
+    <div className='md:w-full h-full  bg-gradient-to-br from-teal-100 to-indigo-400 text-gray-500 md:border-2 border-fuchsia-50 rounded-lg relative flex flex-col md:mx-auto'>
       {/* Header */}
       <div className='w-full h-14 border-b border-black bg-primary rounded-t-lg flex justify-between items-center p-3'>
         <div className='flex items-center text-white text-2xl gap-4'>
+          {isMobileView && (
+            <button
+              className='text-white hover:opacity-80 active:scale-90 transition-all'
+              onClick={handleBackToChatList}
+            >
+              <FaArrowLeft size={20} />
+            </button>
+          )}
           <img
             className='w-12 h-12 object-contain rounded-full  bg-amber-50'
             alt='Profile'
