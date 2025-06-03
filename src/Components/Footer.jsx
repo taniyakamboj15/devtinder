@@ -1,6 +1,9 @@
 import React from "react";
 
 const Footer = () => {
+  const path = window.location.pathname;
+  if (path.includes("/chat")) return null;
+
   return (
     <footer className='footer sm:footer-horizontal bg-gray-900 text-neutral-content p-10 w-screen  '>
       <aside>

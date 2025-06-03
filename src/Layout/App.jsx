@@ -9,6 +9,7 @@ import Connection from "../Components/Connection";
 import Request from "../Components/Request";
 import SignUp from "../Components/SignUp";
 import Chat from "../Components/Chat";
+import ChatLayout from "../Components/ChatLayout";
 const App = () => {
   const appRouter = createBrowserRouter([
     {
@@ -33,8 +34,14 @@ const App = () => {
           element: <Request />,
         },
         {
-          path: "/chat/:targetUserId",
-          element: <Chat />,
+          path: "/chat",
+          element: <ChatLayout />,
+          children: [
+            {
+              path: ":targetUserId", // ✅ no slash
+              element: <Chat />,
+            },
+          ],
         },
       ],
     },
@@ -49,6 +56,7 @@ const App = () => {
       errorElement: <Error />,
     },
   ]);
+
   return <RouterProvider router={appRouter} />;
 };
 

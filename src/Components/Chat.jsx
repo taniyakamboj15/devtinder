@@ -7,13 +7,14 @@ import React, {
 } from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../constants/constants";
-import { createSocketConnection } from "../constants/socket";
-import { useSelector } from "react-redux";
+import { getSocket } from "../constants/socket";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getSharedKey,
   encryptMessage,
   decryptMessage,
 } from "../utils/encryption";
+import fetchChats from "../utils/getAllChats";
 
 const Chat = () => {
   const { targetUserId } = useParams();
@@ -21,15 +22,16 @@ const Chat = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [newMessage, setNewMessage] = useState([]);
   const [typing, setTyping] = useState(false);
-
+  const [chatId, setChatId] = useState(null);
+  const dispatch = useDispatch();
   const socketRef = useRef(null);
   const chatEndRef = useRef(null);
   const typingTimeoutRef = useRef(null);
-
+  const chats = useSelector((store) => store.chats?.chats) || [];
   const userId = useSelector((store) => store.user?.data?._id);
   const data = useSelector((store) => store.user?.data) || {};
   const { firstName, photoURL } = data;
-
+  console.log("chatid :", chatId);
   // Generate shared key for E2EE (AES-256) once both IDs available
   const encryptionKey = useMemo(() => {
     if (!userId || !targetUserId) return null;
@@ -45,6 +47,13 @@ const Chat = () => {
         credentials: "include",
       });
       const { data } = await response.json();
+      if (!data || !data.message) {
+        console.error("No messages found or data is undefined");
+        return;
+      } else {
+        console.log("Fetched chat messages:", data);
+      }
+      setChatId(data._id);
       const decrypted = data.message.map((msg) => ({
         ...msg,
         text: decryptMessage(msg.text, encryptionKey),
@@ -68,35 +77,101 @@ const Chat = () => {
       console.error("Error fetching chat info:", err);
     }
   }, [targetUserId]);
-
+  // Setup socket connection
   useEffect(() => {
-    if (!userId || !targetUserId || !encryptionKey) return;
-
-    const socket = createSocketConnection();
+    const socket = getSocket();
     socketRef.current = socket;
-
-    socket.emit("joinChat", { firstName, userId, targetUserId });
-
-    socket.on("messageReceived", (message) => {
-      const decryptedText = decryptMessage(message.text, encryptionKey);
-      setNewMessage((prev) => [...prev, { ...message, text: decryptedText }]);
-    });
-
-    socket.on("typing", () => setTyping(true));
-    socket.on("stopTyping", () => setTyping(false));
+    if (!socket || !userId || !targetUserId) return;
+    // Join chat room
+    socket.emit("joinChat", { userId, targetUserId, firstName });
+    console.log("Socket connected and joined chat room:");
+    const handleTyping = () => setTyping(true);
+    const handleStopTyping = () => setTyping(false);
+    socket.on("typing", handleTyping);
+    socket.on("stopTyping", handleStopTyping);
 
     return () => {
-      socket.disconnect();
-      socket.off("typing");
-      socket.off("stopTyping");
+      socket.emit("leaveChat", { userId, targetUserId });
+      socket.off("typing", handleTyping);
+      socket.off("stopTyping", handleStopTyping);
     };
-  }, [userId, targetUserId, encryptionKey, firstName]);
+  }, [userId, targetUserId, firstName]);
 
+  // Handle messageReceived and seen logic separately after chatId is available
+  useEffect(() => {
+    const socket = socketRef.current;
+    if (!socket || !chatId || !encryptionKey || !targetUserId || !userId)
+      return;
+
+    const handleMessage = async (message) => {
+      const decryptedText = decryptMessage(message.text, encryptionKey);
+      const fullMessage = { ...message, text: decryptedText };
+      setNewMessage((prev) => [...prev, fullMessage]);
+      fetchChats(dispatch);
+      console.log("New message received:", fullMessage);
+      if (fullMessage.senderId?._id === targetUserId) {
+        try {
+          // console.log("Marking message as seen for target user:", targetUserId);
+          // await fetch(`${BASE_URL}/chats/${chatId}/seen`, {
+          //   method: "PUT",
+          //   credentials: "include",
+          // });
+
+          socket.emit("markSeen", {
+            chatId,
+            seenBy: userId,
+            seenFor: targetUserId,
+          });
+          console.log("Message seen status updated for chatId:", chatId);
+        } catch (error) {
+          console.error("Error updating seen status:", error);
+        }
+      }
+    };
+    socket.on("messageSeen", (data) => {
+      setNewMessage((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg.senderId?._id === userId ? { ...msg, isSeen: true } : msg
+        )
+      );
+      fetchChats(dispatch);
+    });
+
+    socket.on("messageReceived", handleMessage);
+
+    return () => {
+      socket.off("messageReceived", handleMessage);
+    };
+  }, [chatId, encryptionKey, targetUserId, userId, dispatch]);
+
+  useEffect(() => {
+    const socket = socketRef.current;
+    if (!socket || !targetUserId || !userId) return;
+    socket.emit("markSeen", {
+      chatId,
+      seenBy: userId,
+      seenFor: targetUserId,
+    });
+  }, [chatId, targetUserId, userId]);
   useEffect(() => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [newMessage, typing]);
+
+  useEffect(() => {
+    if (targetUserId && chatId) {
+      fetch(`${BASE_URL}/chats/${chatId}/seen`, {
+        method: "PUT",
+        credentials: "include",
+      });
+      // setNewMessage((prevMessages) =>
+      //   prevMessages.map((msg) =>
+      //     msg.senderId?._id === userId ? { ...msg, isSeen: true } : msg
+      //   )
+      // );
+    }
+  }, [chatId]);
 
   const sendMessage = () => {
     if (
@@ -115,7 +190,7 @@ const Chat = () => {
       text: encrypted,
       userImage: photoURL,
     });
-
+    fetchChats(dispatch); // Update chat list after sending message
     setInputMessage("");
   };
 
@@ -138,7 +213,7 @@ const Chat = () => {
   if (!chatInfo) return null;
 
   return (
-    <div className='md:w-[60vw] h-[80vh] md:mx-auto bg-gradient-to-br from-teal-100 to-indigo-400 text-gray-500 border-2 border-fuchsia-50 rounded-lg relative flex flex-col mx-2'>
+    <div className='md:w-full h-full md:mx-auto bg-gradient-to-br from-teal-100 to-indigo-400 text-gray-500 border-2 border-fuchsia-50 rounded-lg relative flex flex-col mx-2'>
       {/* Header */}
       <div className='w-full h-14 border-b border-black bg-primary rounded-t-lg flex justify-between items-center p-3'>
         <div className='flex items-center text-white text-2xl gap-4'>
@@ -147,9 +222,11 @@ const Chat = () => {
             alt='Profile'
             src={chatInfo.photoURL}
           />
-          <p>
-            {chatInfo.firstName} {chatInfo.lastName}
-          </p>
+          <div>
+            <span>
+              {chatInfo.firstName} {chatInfo.lastName}
+            </span>
+          </div>
         </div>
       </div>
 
@@ -183,6 +260,13 @@ const Chat = () => {
               }`}
             >
               {msg.text}
+            </div>
+            <div>
+              {msg.senderId?._id === userId && (
+                <span className='text-xs'>
+                  {msg.isSeen ? "✓✓ Seen" : "✓ Sent"}
+                </span>
+              )}
             </div>
           </div>
         ))}

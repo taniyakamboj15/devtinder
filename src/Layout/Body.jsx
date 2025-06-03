@@ -10,11 +10,14 @@ import { BASE_URL } from "../constants/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../Slices/userSlice";
 import Footer from "../Components/Footer";
-
+import { ToastContainer, Bounce } from "react-toastify";
+import { createSocketConnection } from "../constants/socket";
 const Body = () => {
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const currentUserId = useSelector((state) => state.user?.data?._id);
+
   const fetchUser = async () => {
     try {
       if (!user?.data) {
@@ -42,8 +45,27 @@ const Body = () => {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    if (currentUserId) {
+      createSocketConnection({ currentUserId });
+    }
+  }, [currentUserId]);
+
   return (
     <div className='overflow-x-hidden'>
+      <ToastContainer
+        position='top-center'
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme='light'
+        transition={Bounce}
+      />
       <Header />
       <Outlet />
       <Footer />
