@@ -36,7 +36,7 @@ const Feed = () => {
   }
 
   return (
-    <div className='flex justify-center items-center py-5'>
+    <div className='flex justify-center items-center py-5 h-[98vh]'>
       {feed.length > 0 && (
         <UserCard
           user={feed[0]}
