@@ -72,7 +72,7 @@ const Header = () => {
 
   return (
     <div
-      className={`w-screen h-[4vh] md:h-[7vh]  z-20 flex flex-row justify-between items-center px-3 md:px-10 sticky top-0 shadow-md shadow-gray-600
+      className={`w-screen  md:h-[7vh]  z-20 flex flex-row justify-between items-center px-3 md:px-10 sticky top-0 shadow-md shadow-gray-600
       `}
     >
       <Link to='/'>

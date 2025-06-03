@@ -24,7 +24,7 @@ const ChatLayout = () => {
   const openChat = (id) => navigate(`/chat/${id}`);
 
   return (
-    <div className='flex h-[96vh] md:h-[93vh] overflow-y-clip'>
+    <div className='flex  md:h-[93vh] overflow-y-clip'>
       {/* Sidebar */}
       <div className='w-full md:w-1/3 border-r border-gray-300 bg-white overflow-y-auto'>
         <div className='p-4 text-xl font-semibold border-b '>Chats</div>
