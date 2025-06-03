@@ -9,6 +9,7 @@ import { createSocketConnection, getSocket } from "../constants/socket";
 import fetchChats from "../utils/getAllChats";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import notification from "../assets/notification.wav";
 const Header = () => {
   const location = useLocation();
   const user = useSelector((store) => store?.user?.data);
@@ -18,6 +19,8 @@ const Header = () => {
   const currentUserId = useSelector((store) => store?.user?.data?._id);
   const { targetUserId } = useParams();
   const socketRef = useRef();
+  const soundRef = useRef(new Audio(notification));
+
   const handleLogout = async () => {
     const response = await fetch(BASE_URL + "/logout", {
       method: "POST",
@@ -53,6 +56,7 @@ const Header = () => {
       const shouldNotify = !isInActiveChat && data.shouldRefresh;
 
       if (shouldNotify) {
+        soundRef.current.play();
         toast(`New message from ${data.senderName}`);
       }
 
